@@ -64,7 +64,7 @@ class Traccar2Forward():
 
 
     def listen(self):
-        server = ThreadingHTTPServer(('127.0.0.1', self.port), HTTPRequestHandler)
+        server = ThreadingHTTPServer(('0.0.0.0', self.port), HTTPRequestHandler)
         LOGGER.info(f"Starting server at http://127.0.0.1:{self.port}")
         server.serve_forever()
 
@@ -163,7 +163,7 @@ class Traccar2Forward():
             return
         
         dizio = self.parsetodict(j)
-        print(dizio)
+        # print(dizio)
 
         for att, value in attributes.items():
             matches = [i for i in self.keywords if re.search("^" + i + "[0-9]{0,1}$", att.lower())]
