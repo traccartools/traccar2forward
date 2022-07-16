@@ -83,7 +83,7 @@ class Traccar2Forward():
         for k in ["deviceTime","fixTime"]:
             di[k] = dp.parse(j["position"][k])
         
-        for k in ["ignition","motion"]:
+        for k in ["motion"]:
             di[k] = j["position"]["attributes"][k]
 
         return(di)
