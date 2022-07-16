@@ -1,0 +1,5 @@
+aprslib
+requests
+validators
+python-dateutil
+webdav4
