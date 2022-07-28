@@ -194,9 +194,9 @@ class Traccar2Forward():
             #PhoneTrack
             elif attn == self.PhonetrackKeyword:
                 LOGGER.debug(f"Attribute {att}")
-                v = value.split("/")
+                v = value.replace("/"," ").strip().split(" ")
                 token = v[0]
-                name = v[1] if len(v)>1 else j["device"]["name"]
+                name = v[1] if len(v)>1 else j["device"]["name"].strip().replace(" ","_")
             
                 if not (set(token).issubset(string.hexdigits) and len(token) == 32): #checks the token
                     LOGGER.info(f"Invalid PhoneTrack token: {token}")
