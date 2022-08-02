@@ -233,7 +233,7 @@ class Traccar2Forward():
                     client = webdav4.client.Client(ur, auth=(us, up))
                     if not client.exists(fol):
                         client.mkdir(fol)
-                    fn = fol + "/" + datetime.strftime(ts,"%Y%m%d_%H%M%S") + ".json"
+                    fn = fol + "/" + datetime.strftime(ts,"%Y%m%d_%H%M%S.%f")[:-3] + ".json"
                     client.upload_fileobj(BytesIO(json.dumps(j, indent=2).encode('utf-8')), fn, True)
 
                 except (webdav4.client.ClientError) as e:
