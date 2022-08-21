@@ -101,7 +101,7 @@ class Traccar2Forward():
             LOGGER.error(f"url format error: {str(e)}")
             return
 
-        if not validators.url(validators.url(urlparse(url)._replace(netloc='localhost').geturl())):
+        if not validators.url(urlparse(url)._replace(netloc='localhost').geturl()):
             LOGGER.debug(f"Invalid url ({url})")
             return
 
