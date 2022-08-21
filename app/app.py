@@ -8,6 +8,7 @@ import signal
 import aprslib
 import requests
 import validators
+from urllib.parse import urlparse
 import string
 
 import dateutil.parser as dp
@@ -100,7 +101,7 @@ class Traccar2Forward():
             LOGGER.error(f"url format error: {str(e)}")
             return
 
-        if not validators.url(url):
+        if not validators.url(validators.url(urlparse(url)._replace(netloc='localhost').geturl())):
             LOGGER.debug(f"Invalid url ({url})")
             return
 
@@ -132,6 +133,10 @@ class Traccar2Forward():
         APRS_FROMCALL = vs[2]
         APRS_SYMBOL = vs[3]
         APRS_COMMENT = vs[4]
+
+        if (datetime.now() - dic["fixTime"]).total_seconds() < 300:
+            LOGGER.debug("Packet discarded. Too old")
+            return
 
         dizusr = {"fromcall":APRS_FROMCALL, "tocall":"TRCCAR,TCPIP*", "symbol_table":APRS_SYMBOL[0], "symbol":APRS_SYMBOL[1], "comment":APRS_COMMENT}
         pr = aprspacket({**dic, **dizusr})
